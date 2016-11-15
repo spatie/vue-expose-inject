@@ -5,10 +5,8 @@ describe('inject', () => {
 
     it('can inject a property that\'s set on a parent', () => {
         const parent = new Vue({
-            mixins: [
-                expose(['propA']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'foo',
                 };
@@ -27,10 +25,8 @@ describe('inject', () => {
 
     it('can inject multiple properties', () => {
         const parent = new Vue({
-            mixins: [
-                expose(['propA', 'propB']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'foo',
                     propB: 'bar',
@@ -51,10 +47,8 @@ describe('inject', () => {
 
     it('can rename injected properties', () => {
         const parent = new Vue({
-            mixins: [
-                expose(['propA']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'foo',
                 };
@@ -75,10 +69,8 @@ describe('inject', () => {
 
     it('can inject a property that\'s set on a further ancestor', () => {
         const grandParent = new Vue({
-            mixins: [
-                expose(['propA']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'foo',
                 };
@@ -101,10 +93,8 @@ describe('inject', () => {
 
     it('returns the last exposed property if there are multiple with the same name', () => {
         const grandParent = new Vue({
-            mixins: [
-                expose(['propA']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'foo',
                 };
@@ -113,10 +103,8 @@ describe('inject', () => {
 
         const parent = new Vue({
             parent: grandParent,
-            mixins: [
-                expose(['propA']),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
                     propA: 'bar',
                 };
@@ -131,6 +119,30 @@ describe('inject', () => {
         });
 
         expect(child.propA).toBe('bar');
+    });
+
+    it.only('can inject a property that was exposed as a symbol', () => {
+        const myProp = Symbol();
+
+        const parent = new Vue({
+            mixins: [expose],
+            expose() {
+                return {
+                    [myProp]: 'foo',
+                };
+            },
+        });
+
+        const child = new Vue({
+            parent,
+            computed: {
+                ...inject({
+                    myProp,
+                }),
+            },
+        });
+
+        expect(child.myProp).toBe('foo');
     });
 
     it('throws an error if it tries to inject a property that hasn\'t been exposed', () => {

@@ -5,29 +5,26 @@ describe('expose', () => {
 
     it('can mark an instance property as exposed', () => {
         const vm = new Vue({
-            mixins: [
-                expose(['propA']),
-            ],
+            mixins: [expose],
             data() {
                 return {
-                    propA: 'foo',
+                    myProp: 'foo',
                 };
+            },
+            expose() {
+                return ['myProp'];
             },
         });
 
-        expect(vm.$expose).toEqual({ propA: 'foo' });
+        expect(vm.$expose).toEqual({ myProp: 'foo' });
     });
 
-    it('can rename an exposed property', () => {
+    it('can expose any value', () => {
         const vm = new Vue({
-            mixins: [
-                expose({
-                    myProp: 'propA',
-                }),
-            ],
-            data() {
+            mixins: [expose],
+            expose() {
                 return {
-                    propA: 'foo',
+                    myProp: 'foo',
                 };
             },
         });
@@ -35,28 +32,13 @@ describe('expose', () => {
         expect(vm.$expose).toEqual({ myProp: 'foo' });
     });
 
-    it('can mark multiple instance properties as exposed', () => {
-        const vm = new Vue({
-            mixins: [
-                expose(['propA', 'propB']),
-            ],
-            data() {
-                return {
-                    propA: 'foo',
-                    propB: 'bar',
-                };
-            },
-        });
-
-        expect(vm.$expose).toEqual({ propA: 'foo', propB: 'bar' });
-    });
-
     it('throws an error if a property that doesn\'t exist gets exposed', () => {
         expect(() => {
             new Vue({
-                mixins: [
-                    expose(['propA']),
-                ],
+                mixins: [expose],
+                expose() {
+                    return ['myProp'];
+                },
             });
         }).toThrow();
     });

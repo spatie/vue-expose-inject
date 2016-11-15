@@ -1,25 +1,29 @@
-import { normalizeMap } from './util';
+const expose = {
+    created() {
+        if (! this.$options.hasOwnProperty('expose')) {
+            return;
+        }
+        
+        if (! this.hasOwnProperty('$expose')) {
+            this.$expose = {};
+        }
 
-function expose(keys) {
-    return {
-        created() {
-            if (! this.hasOwnProperty('$expose')) {
-                this.$expose = {};
-            }
+        let expose = this.$options.expose();
 
-            const expose = normalizeMap(keys).reduce((expose, { key, property }) => {
+        if (Array.isArray(expose)) {
+            expose = expose.reduce((expose, property) => {
                 if (! this.hasOwnProperty(property)) {
-                    throw new Error(`Can't expose \`${key}\` since it's not set`);
+                    throw new Error(`Can't expose \`${property}\` since it's not set`);
                 }
 
-                expose[key] = this[property];
+                expose[property] = this[property];
 
                 return expose;
             }, {});
+        }
 
-            this.$expose = { ...this.$expose, ...expose };
-        },
-    };
-}
+        this.$expose = { ...this.$expose, ...expose };
+    },
+};
 
 export default expose;
