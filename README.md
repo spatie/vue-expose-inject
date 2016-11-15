@@ -26,9 +26,7 @@ yarn add vue-expose-inject
 ## Usage
 
 ```js
-const myPackage = require('my-package');
 
-myPackage.doStuff();
 ```
 
 ## Change log
