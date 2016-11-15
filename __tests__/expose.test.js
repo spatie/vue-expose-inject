@@ -6,7 +6,7 @@ describe('expose', () => {
     it('can mark an instance property as exposed', () => {
         const vm = new Vue({
             mixins: [
-                expose(['propA'])
+                expose(['propA']),
             ],
             data() {
                 return {
