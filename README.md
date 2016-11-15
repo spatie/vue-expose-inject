@@ -5,6 +5,8 @@
 [![Build Status](https://img.shields.io/travis/spatie/vue-expose-inject/master.svg?style=flat-square)](https://travis-ci.org/spatie/vue-expose-inject)
 [![Code Climate](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg?style=flat-square)](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg)
 
+> This is a work in progress!
+
 ## Postcardware
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
@@ -26,7 +28,31 @@ yarn add vue-expose-inject
 ## Usage
 
 ```js
+// Expose a property...
+const vm = new Vue({
+    mixins: [expose],
 
+    data: () => ({
+        user: 'Sebastian',
+    }),
+
+    expose() {
+        return {
+            user: this.user,
+        };
+    },
+});
+
+// ...to be able to inject it in a child component
+const child = new Vue({
+    parent: vm,
+
+    computed: {
+        ...inject(['user']),
+    },
+});
+
+child.user; // 'Sebastian'
 ```
 
 ## Change log
