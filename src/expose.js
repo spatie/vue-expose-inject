@@ -4,8 +4,8 @@ const expose = {
             return;
         }
         
-        if (! this.hasOwnProperty('$expose')) {
-            this.$expose = {};
+        if (! this.hasOwnProperty('$exposed')) {
+            this.$exposed = {};
         }
 
         let expose = this.$options.expose();
@@ -22,7 +22,7 @@ const expose = {
             }, {});
         }
 
-        this.$expose = { ...this.$expose, ...expose };
+        this.$exposed = { ...this.$exposed, ...expose };
     },
 };
 

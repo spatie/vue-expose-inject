@@ -2,8 +2,8 @@ import { normalizeMap } from './util';
 
 function resolveDependency(key, vm) {
 
-    if (key in (vm.$expose || {})) {
-        return vm.$expose[key];
+    if (key in (vm.$exposed || {})) {
+        return vm.$exposed[key];
     }
 
     if (vm.$options.parent) {

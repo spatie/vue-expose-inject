@@ -16,7 +16,7 @@ describe('expose', () => {
             },
         });
 
-        expect(vm.$expose).toEqual({ myProp: 'foo' });
+        expect(vm.$exposed).toEqual({ myProp: 'foo' });
     });
 
     it('can expose any value', () => {
@@ -29,7 +29,7 @@ describe('expose', () => {
             },
         });
 
-        expect(vm.$expose).toEqual({ myProp: 'foo' });
+        expect(vm.$exposed).toEqual({ myProp: 'foo' });
     });
 
     it('throws an error if a property that doesn\'t exist gets exposed', () => {
