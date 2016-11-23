@@ -4,3 +4,11 @@ export function normalizeMap(map) {
         ? map.map(key => ({ key, property: key }))
         : Object.keys(map).map(key => ({ key, property: map[key] }));
 }
+
+export function isArray(object) {
+    return Array.isArray(object);
+}
+
+export function isFunction(object) {
+    return typeof object === 'function';
+}
