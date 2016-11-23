@@ -3,7 +3,6 @@
 [![Latest Version on NPM](https://img.shields.io/npm/v/vue-expose-inject.svg?style=flat-square)](https://npmjs.com/package/vue-expose-inject)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/vue-expose-inject/master.svg?style=flat-square)](https://travis-ci.org/spatie/vue-expose-inject)
-[![Code Climate](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg?style=flat-square)](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg)
 
 Exposes a set of properties to all of a components descendants.  
 
