@@ -1,6 +1,6 @@
 {
   "name": "vue-expose-inject",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A React context-like solution for Vue.js",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
