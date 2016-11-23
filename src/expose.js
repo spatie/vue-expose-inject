@@ -24,7 +24,7 @@ function retrieveExposedProperties(vm) {
 
 const expose = {
     created() {
-        if (! this.$options.hasOwnProperty('expose')) {
+        if (this.$options.expose === undefined) {
             return;
         }
         
