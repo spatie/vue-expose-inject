@@ -70,17 +70,27 @@ import { expose } from 'vue-expose-inject';
 export default {
     mixins: [expose],
 
-    data: () => ({
-        bus: new Bus(),
-    }),
-
     expose() {
         return {
-            bus: this.bus,
+            bus: new Bus(),
         };
     },
 }
 ```
+
+Vue instance properties can also be exposed by passing their names in an array:
+
+```js
+export default {
+    mixins: [expose],
+
+    data: () => ({
+        bus: new Bus(),
+    }),
+
+    expose: ['bus'],
+}
+``` 
 
 Descendant components can then inject the property using the `inject` helper function, which uses the same syntax as Vuex's `map` helpers:
 
