@@ -5,7 +5,35 @@
 [![Build Status](https://img.shields.io/travis/spatie/vue-expose-inject/master.svg?style=flat-square)](https://travis-ci.org/spatie/vue-expose-inject)
 [![Code Climate](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg?style=flat-square)](https://img.shields.io/codeclimate/github/spatie/vue-expose-inject.svg)
 
-> This is a work in progress!
+Exposes a set of properties to all of a components descendants.  
+
+```js
+// Expose a property...
+const vm = new Vue({
+    mixins: [expose],
+
+    data: () => ({
+        bus: new Bus(),
+    }),
+
+    expose() {
+        return {
+            bus: this.bus,
+        };
+    },
+});
+
+// ...to be able to inject it in a child component
+const child = new Vue({
+    parent: vm,
+
+    computed: {
+        ...inject(['bus']),
+    },
+});
+
+child.bus; // EventBus instance
+```
 
 ## Postcardware
 
@@ -25,34 +53,78 @@ You can install the package via yarn:
 yarn add vue-expose-inject
 ```
 
+## Use Cases
+
+This package is based on React's [context](https://facebook.github.io/react/docs/context.html) feature. Exposes and inject are useful for giving your components access to global-ish objects, like event busses or authentication data. Expose/inject can make your application harder to reason about, and depends on a certain hierarchy with your components, so use with care!    
+
 ## Usage
 
+Child components can inject properties that are exposed by one of their ancestors. This goes beyond parent-child communitation, the distance between the parent and child, grandchild, etc. doesn't matter.
+
+To get started, expose an object from a parent component by adding the `expose` mixin and an `expose` function, which returns the object:
+
 ```js
-// Expose a property...
-const vm = new Vue({
+// Parent.js
+
+import { expose } from 'vue-expose-inject';
+
+export default {
     mixins: [expose],
 
     data: () => ({
-        user: 'Sebastian',
+        bus: new Bus(),
     }),
 
     expose() {
         return {
-            user: this.user,
+            bus: this.bus,
         };
     },
-});
+}
+```
 
-// ...to be able to inject it in a child component
-const child = new Vue({
+Descendant components can then inject the property using the `inject` helper function, which uses the same syntax as Vuex's `map` helpers:
+
+```js
+// Child.js
+
+import { inject } from 'vue-expose-inject';
+
+export default {
     parent: vm,
 
     computed: {
-        ...inject(['user']),
+        ...inject(['bus']),
     },
-});
+}
+```
 
-child.user; // 'Sebastian'
+> If you try to inject a property that hasn't been exposed by an ancestor, an error gets thrown 
+
+Injected properties can be renamed by passing in an object instead of an array:
+
+```js
+export default {
+    // ...
+
+    computed: {
+        ...inject({
+            myBus: 'bus',
+        }),
+    },
+}
+```
+
+If you're not using the spread operator, you can `assign` the properties:
+
+```js
+export default {
+    // ...
+    
+    computed: Object.assign(inject(['bus']), {
+        // My computed properties...
+    }),
+}
 ```
 
 ## Change log
