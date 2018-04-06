@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import { expose } from '../src';
 
+Vue.config.errorHandler = (err, vm, info) => {
+    vm._error = err;
+};
+
 describe('expose', () => {
     it('can expose any value', () => {
         const vm = new Vue({
@@ -36,11 +40,11 @@ describe('expose', () => {
     });
 
     it('throws an error if a property that doesn\'t exist gets exposed', () => {
-        expect(() => {
-            new Vue({
-                mixins: [expose],
-                expose: ['myProp'],
-            });
-        }).toThrow();
+        const vm = new Vue({
+            mixins: [expose],
+            expose: ['myProp'],
+        });
+
+        expect(vm._error).toBeDefined();
     });
 });
