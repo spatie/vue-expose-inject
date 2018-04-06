@@ -2,18 +2,23 @@ import Vue from 'vue';
 import { expose } from '../src';
 
 describe('expose', () => {
-
     it('can expose any value', () => {
         const vm = new Vue({
             mixins: [expose],
+            data() {
+                return {
+                    myOtherProp: 'bar',
+                };
+            },
             expose() {
                 return {
                     myProp: 'foo',
+                    myOtherProp: this.myOtherProp,
                 };
             },
         });
 
-        expect(vm.$exposed).toEqual({ myProp: 'foo' });
+        expect(vm.$exposed).toEqual({ myProp: 'foo', myOtherProp: 'bar' });
     });
 
     it('can expose an array of named properties', () => {
