@@ -4,7 +4,9 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/vue-expose-inject/master.svg?style=flat-square)](https://travis-ci.org/spatie/vue-expose-inject)
 
-Exposes a set of properties to all of a components descendants.  
+**This package is deprecated! Vue has this functionality built in as of v2.2**
+
+Exposes a set of properties to all of a components descendants.
 
 ```js
 // Expose a property...
@@ -54,7 +56,7 @@ yarn add vue-expose-inject
 
 ## Use Cases
 
-This package is based on React's [context](https://facebook.github.io/react/docs/context.html) feature. Exposes and inject are useful for giving your components access to global-ish objects, like event busses or authentication data. Expose/inject can make your application harder to reason about, and depends on a certain hierarchy with your components, so use with care!    
+This package is based on React's [context](https://facebook.github.io/react/docs/context.html) feature. Exposes and inject are useful for giving your components access to global-ish objects, like event busses or authentication data. Expose/inject can make your application harder to reason about, and depends on a certain hierarchy with your components, so use with care!
 
 ## Usage
 
@@ -90,7 +92,7 @@ export default {
 
     expose: ['bus'],
 }
-``` 
+```
 
 Descendant components can then inject the property using the `inject` helper function, which uses the same syntax as Vuex's `map` helpers:
 
@@ -108,7 +110,7 @@ export default {
 }
 ```
 
-> If you try to inject a property that hasn't been exposed by an ancestor, an error gets thrown 
+> If you try to inject a property that hasn't been exposed by an ancestor, an error gets thrown
 
 Injected properties can be renamed by passing in an object instead of an array:
 
@@ -129,7 +131,7 @@ If you're not using the spread operator, you can `assign` the properties:
 ```js
 export default {
     // ...
-    
+
     computed: Object.assign(inject(['bus']), {
         // My computed properties...
     }),
