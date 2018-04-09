@@ -2,11 +2,11 @@ import { isArray, isFunction } from './util';
 
 function retrieveExposedProperties(vm) {
     const expose = vm.$options.expose;
-    
+
     if (isFunction(expose)) {
-        return expose();
+        return expose.call(vm);
     }
-    
+
     if (isArray(expose)) {
         return expose.reduce((expose, property) => {
             if (! vm.hasOwnProperty(property)) {
@@ -27,7 +27,7 @@ const expose = {
         if (this.$options.expose === undefined) {
             return;
         }
-        
+
         this.$exposed = retrieveExposedProperties(this);
     },
 };
