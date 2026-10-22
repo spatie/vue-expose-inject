@@ -1,6 +1,4 @@
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # A React context-like solution for Vue.js
 
 [![Latest Version on NPM](https://img.shields.io/npm/v/vue-expose-inject.svg?style=flat-square)](https://npmjs.com/package/vue-expose-inject)
@@ -41,7 +39,7 @@ child.bus; // EventBus instance
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/vue-expose-inject.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/vue-expose-inject)
+[<img src="https://spatie.be/github-ad-image/vue-expose-inject.jpg" width="419px" />](https://spatie.be/github-ad-click/vue-expose-inject)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
